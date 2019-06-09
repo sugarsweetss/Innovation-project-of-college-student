@@ -1,0 +1,10 @@
+#set(title='直播平台')
+#@layout()
+
+#define body()
+
+#for(x: users)
+<a href="video/#(x.name)">#(x.name)的直播空间</a><br/><br/><br/>
+#end
+
+#end

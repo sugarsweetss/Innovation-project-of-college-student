@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+#define nav()
+<html>
+<body>
+<div id="nav-holder"></div>
+<div id="nav">
+    <div class="nav-contain">
+        <div id="logo-nav">
+            <div id="logo">
+                <span>洋葱直播</span>
+            </div>
+            <nav id="hot">
+                <a href="#" target="_blank" class="nav-text">最热</a>
+            </nav>
+            <nav id="new">
+                <a href="#" target="_blank" class="nav-text">最新</a>
+            </nav>
+            <nav id="classify">
+                <span class="nav-text">分类</span>
+                <div id="out-fake"></div>
+                <div id="out-box">
+                    <a href="#" target="_blank" class="classify-text ma">
+                        推荐主播
+                    </a>
+                    <a href="#" target="_blank" class="classify-text ma">
+                        唱见舞见
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        御宅文化
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        网络游戏
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        手游直播
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        单机联机
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        电子竞技
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        生活娱乐
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        绘画专区
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <div class="box">
+            <div class="searchBox">
+                <input onfocus="search(1)" onblur="search(0)" class="innerInput" name="key"
+                       placeholder="许下你的愿望吧~">
+                <div class="searchPic">
+                    <svg fill="#8590A6" id="svgOne" version="1.1" xmlns="http://www.w3.org/2000/svg" width="40px"
+                         height="40px" viewBox="-318.5 -318.5 60 60">
+                        <g>
+                            <path d="M-272.213-276.454l-6.833-6.833c-0.513-0.513-1.167-0.788-1.836-0.852c2.059-2.568,3.298-5.82,3.298-9.36  c0-8.271-6.729-15-15-15s-15,6.729-15,15s6.729,15,15,15c3.121,0,6.021-0.96,8.424-2.597c0.017,0.744,0.304,1.483,0.872,2.051  l6.833,6.833c0.585,0.586,1.354,0.879,2.121,0.879s1.536-0.293,2.121-0.879C-271.041-273.383-271.041-275.282-272.213-276.454z   M-292.584-283.499c-5.514,0-10-4.486-10-10s4.486-10,10-10s10,4.486,10,10S-287.07-283.499-292.584-283.499z"></path>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            <button id="doSearch">
+                上传
+            </button>
+        </div>
+        <div id="account">
+            <a href="#" target="_blank" id="user-message">
+                <img src="../picture/userPic.jpg" width="44px" height="44px">
+            </a>
+            <div id="user-down">
+                <div id="user-name">
+                    #(nickName)
+                </div>
+                <!--<div class="user-ch">-->
+                <!--<span class="span-left">性别：</span>-->
+                <!--<span class="span-right">男</span>-->
+                <!--</div>-->
+                <div class="user-ch">
+                    <span class="span-left">手机：</span>
+                    <span class="span-right">#(phoneNum)</span>
+                </div>
+                <div id="logout" class="user-ch">
+                    退出登录
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#@body()
+<footer>
+    <span id="pro-name">洋葱直播</span>
+    <span>Copyright © none  联系作者@Mr.Liu<1368209598@qq.com></span>
+</footer>
+<script>
+    //搜索栏效果
+    function search(x) {
+        var doButton = document.getElementById('doSearch');
+        var box = document.getElementsByClassName('searchBox')[0];
+        var co = document.getElementById('svgOne');
+        if (x === 1) {
+            box.style.background = 'white';
+            doButton.className = 'onInput';
+            box.style.width = '290px';
+            co.style.fill = '#0f88eb';
+        } else {
+            box.style.width = '200px';
+            box.style.background = '#f7f8fa';
+            doButton.className = '';
+            co.style.fill = '#8590A6';
+        }
+    }
+
+    window.onload = function () {
+        let liveFakes = document.getElementsByClassName('live-pic-fake');
+        let livePics = document.getElementsByClassName('live-pic-show');
+        for (let i = 0; i < livePics.length; i++) {
+
+            liveFakes[i].onmouseout = function () {
+                livePics[i].style.display = 'flex';
+                livePics[i].style.animation = 'for-live-out .3s';
+                setTimeout(function () {
+                    livePics[i].style.display = 'none';
+                }, 300);
+            }
+        }
+    }
+</script>
+#@script?()
+</body>
+</html>
+#end

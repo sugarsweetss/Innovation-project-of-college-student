@@ -1,0 +1,13 @@
+user-info:
+    token:记录用户登录之后的token信息
+    user_id:记录用户登录之后的id
+    isOnLine:记录是否为登录状态(true:登录 false:未登录)
+    nickName:记录(已登录)用户的昵称
+chooseVideo:
+    (作为临时存储即将发布的视频信息所使用的)
+    chooseVideoPath:记录发布视频的路径
+    videoDruation:记录发布视频时长
+
+ watchVideo:
+    (作为临时存储播放视频信息所使用的)
+    videoUrl:记录当前正在观看的视频url地址

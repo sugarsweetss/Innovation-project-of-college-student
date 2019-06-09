@@ -1,0 +1,35 @@
+<resources>
+	<!-- Default screen margins, per the Android Design guidelines. -->
+
+	<!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+		 https://developer.android.com/design/patterns/navigation-drawer.html -->
+
+
+    <!-- UI统一设置 -->
+
+
+    <!-- 通用 -->
+    <dimen name="text_size_19">19.0sp</dimen>
+	<dimen name="text_size_18">18.0sp</dimen>
+    <dimen name="text_size_14">14.0sp</dimen>
+	<dimen name="text_size_13">13.0sp</dimen>
+    <dimen name="text_size_11">11.0sp</dimen>
+    <dimen name="space_20">20.0dip</dimen>
+    <dimen name="space_2">2.0dip</dimen>
+
+    <!-- >KSY<!-->
+
+
+
+	<!-- font size -->
+    <dimen name="font_size_38px">19sp</dimen>
+	<dimen name="font_size_36px">18sp</dimen>
+    <dimen name="font_size_28px">14sp</dimen>
+    <dimen name="font_size_22px">11sp</dimen>
+
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+	<dimen name="global_actionbar_height">46dip</dimen>
+
+
+</resources>

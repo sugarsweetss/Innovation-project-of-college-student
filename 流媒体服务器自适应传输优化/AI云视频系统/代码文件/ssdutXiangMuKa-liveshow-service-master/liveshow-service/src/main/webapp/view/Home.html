@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>洋葱直播</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            color: #666;
+            z-index: 1;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+        a:focus{
+            outline: none;
+        }
+
+        span, a {
+            cursor: pointer;
+        }
+
+        #nav, #nav-holder {
+            width: 100%;
+            height: 60px;
+        }
+
+        #nav {
+            z-index: 5;
+            position: fixed;
+            top: 0;
+            background: white;
+            box-shadow: #666666 0 0 6px;
+            padding: 0;
+        }
+
+        .nav-contain, #logo-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-contain, .page-contain {
+            padding: 0;
+            margin: 0 auto;
+            width: 1100px;
+            height: 100%;
+        }
+
+        .page-contain {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            width: 1150px;
+        }
+
+        #logo > span {
+            cursor: default;
+            height: 40px;
+            line-height: 40px;
+            font-size: 30px;
+            color: #0f88eb;
+        }
+
+        #logo-nav {
+            width: 32%;
+        }
+
+        .nav-text {
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        #hot:hover > a, #new:hover > a, #classify:hover > span {
+            color: #0f88eb;
+        }
+
+        #classify {
+            position: relative;
+        }
+
+        #out-fake {
+            height: 0;
+            width: 140px;
+            position: absolute;
+            top: 20px;
+            left: -50px;
+        }
+
+        #out-box {
+            display: flex;
+            overflow: hidden;
+            box-shadow: #666666 0 3px 3px;
+            position: absolute;
+            top: 50px;
+            left: -90px;
+            background: white;
+            border-radius: 0 0 10px 10px;
+            padding: 0 20px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            height: 0;
+            width: 180px;
+            transition: height .4s, opacity .4s;
+        }
+
+        .classify-text {
+            font-size: 15px;
+            color: lightslategrey;
+            height: 0;
+            opacity: 0;
+            line-height: 35px;
+            width: 90px;
+            text-align: center;
+            border-radius: 10px;
+            transition: height .5s, opacity .4s, margin .5s;
+        }
+
+        .ma {
+            margin-top: 10px;
+        }
+
+        .classify-text:hover {
+            background: lightgray;
+        }
+
+        #classify:hover > #out-box {
+            padding: 0 20px 20px 20px;
+            height: 202px;
+        }
+
+        #classify:hover > #out-fake {
+            height: 40px;
+        }
+
+        #classify:hover a {
+            height: 35px;
+            opacity: 1;
+        }
+
+        .box {
+            position: relative;
+            display: flex;
+            width: 280px;
+            height: 42px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .searchBox {
+            display: flex;
+            width: 200px;
+            height: 33px;
+            background: #f7f8fa;
+            border-radius: 17.5px;
+            border: solid 1px gainsboro;
+            align-items: center;
+            justify-content: space-between;
+            -webkit-transition: width 0.3s, -webkit-transform 0.5s;
+            transition: width 0.3s, transform 0.5s;
+        }
+
+        .innerInput {
+            width: 100%;
+            margin: 0 0 0 20px;
+            padding: 0;
+            border: 0;
+            background: inherit;
+            color: #666;
+        }
+
+        input::-moz-placeholder {
+            color: darkgray;
+        }
+
+        #doSearch {
+            position: absolute;
+            right: 0;
+            top: 1.5px;
+            cursor: pointer;
+            color: white;
+            width: 50px;
+            height: 37px;
+            margin: 0;
+            padding: 0;
+            background: #0f88eb;
+            border: 0;
+            border-radius: 13px;
+            text-align: center;
+            line-height: 34px;
+            -webkit-transition: all 0.2s;
+            transition: all 0.2s;
+        }
+
+        #doSearch:hover {
+            background: royalblue;
+        }
+
+        #doSearch:active {
+            transform: scale(0.9);
+        }
+
+        .onInput {
+            transform: scale(0.0);
+        }
+
+        .searchPic {
+            display: flex;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            margin: 0 5px;
+            padding: 0;
+            border: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #account {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        #user-message {
+            display: inline-block;
+            height: 44px;
+            width: 44px;
+            border-radius: 44px;
+            overflow: hidden;
+            transition: .3s;
+            transform-origin: 50% 0;
+        }
+
+        #account:hover #user-message {
+            transform: translate(0, 16px) scale(1.6);
+        }
+
+        #account:hover #user-down {
+            height: 228px;
+        }
+
+        #user-down {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            z-index: -1;
+            position: absolute;
+            top: 52px;
+            right: -103px;
+            width: 250px;
+            box-shadow: #666666 0 3px 3px;
+            background: white;
+            border-radius: 0 0 10px 10px;
+            transition: .4s;
+            height: 0;
+            overflow: hidden;
+        }
+
+        #user-name {
+            cursor: default;
+            width: 100px;
+            margin-top: 45px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .user-ch {
+            color: darkgrey;
+            cursor: pointer;
+            width: 210px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #logout:hover {
+            color: #0f88eb;
+        }
+
+        #logout {
+
+            border-top: solid 1px lightgray;
+            padding-top: 20px;
+        }
+
+        .span-left {
+            float: left;
+        }
+
+        .span-right {
+            float: right;
+        }
+
+        #index-show {
+            z-index: 3;
+            width: 100%;
+            padding-top: 10px;
+            padding-bottom: 20px;
+            margin-bottom: 60px;
+            background: url("../picture/background.jpg") -230px;
+        }
+
+        #vi-pic-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            width: 160px;
+            height: 530px;
+        }
+
+        video {
+            object-fit: fill;
+        }
+
+        #into-room {
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 180px;
+            margin: auto;
+            height: 40px;
+            width: 100px;
+            background: black;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 5px;
+            opacity: 0.7;
+        }
+
+        video:hover + #into-room, #into-room:hover {
+            display: block;
+        }
+
+        .other-video {
+            cursor: pointer;
+            position: relative;
+            width: 100%;
+            height: 110px;
+            background: white;
+        }
+
+        .other-video-text {
+            color: white;
+            font-size: 15px;
+            line-height: 30px;
+            text-align: center;
+            overflow: hidden;
+            height: 0;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transition: .3s;
+        }
+
+        .other-video img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .other-video:hover > .other-video-text {
+            height: 30px;
+            background: black;
+            opacity: 0.7;
+        }
+
+        .zone {
+            height: 458px;
+            overflow: hidden;
+            margin: 30px auto;
+        }
+
+        .lives-box {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            width: 880px;
+            margin-right: -20px;
+        }
+
+        .lives-box-header {
+            height: 38px;
+            margin-right: 20px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .live-zone-name {
+            display: inline-block;
+            color: #0f88eb;
+            width: 100px;
+            overflow: hidden;
+        }
+
+        .live-zone-name > h2 {
+            margin: 0;
+        }
+
+        .live-zone-more {
+            font-size: 13px;
+            text-align: center;
+            color: #666666;
+            float: right;
+            height: 20px;
+            line-height: 20px;
+            width: 60px;
+            border: solid 1px #666666;
+            border-radius: 0 20px 20px 0;
+            margin-top: 7px;
+        }
+
+        .live-zone-more:hover {
+            color: #0f88eb;
+        }
+
+        .live {
+            margin-right: 20px;
+            width: 200px;
+            height: 200px;
+        }
+
+        .live-pic, .live-pic > img {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 120px;
+        }
+
+        @keyframes for-live {
+            0% {
+                width: 0;
+            }
+            50% {
+                border-radius: 0 120px 120px 0;
+            }
+            100% {
+                width: 200px;
+            }
+        }
+
+        @keyframes for-live-out {
+            0% {
+
+            }
+            50% {
+                border-radius: 120px 0 0 120px;
+            }
+            100% {
+                transform: translateX(200px);
+                border-radius: 120px 0 0 120px;
+            }
+        }
+
+        .live-pic-fake {
+            opacity: 0;
+        }
+
+        .live-pic-fake, .live-pic-show {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .live-pic-show {
+            overflow: hidden;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: #0f88eb;
+        }
+
+        .live-pic-show > img {
+            width: 55px;
+            height: 55px;
+            border-radius: 55px;
+        }
+
+        .live-pic:hover > .live-pic-show {
+            display: flex !important;
+            animation: for-live .3s !important;
+        }
+
+        .live-pic-show > span {
+            font-size: 14px;
+            margin-left: 15px;
+            border: solid 2px white;
+            color: white;
+            width: 50px;
+            height: 15px;
+            line-height: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .live-pic-show > span > span {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 4px;
+            margin-top: 6px;
+            margin-right: 3px;
+            vertical-align: top;
+        }
+
+        .live-name {
+            display: block;
+            font-size: 15px;
+            margin-top: 9px;
+            margin-bottom: 5px;
+            color: black;
+            width: 200px;
+        }
+
+        .live-user {
+            display: inline-block;
+            font-size: 13px;
+            color: #666666;
+            height: 20px;
+            line-height: 20px;
+            width: 58%;
+            overflow: hidden;
+        }
+
+        .live-hot {
+            height: 20px;
+            width: 38%;
+            display: inline-block;
+        }
+
+        .lives-lv {
+            width: 270px;
+        }
+
+        .lives-lv-header {
+            width: 100%;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .lives-lv-text {
+            cursor: default;
+            height: 26px;
+            line-height: 26px;
+            width: 90px;
+            text-align: center;
+            border-radius: 22px;
+            background: #0f88eb;
+            color: white;
+        }
+
+        .live-msg-box{
+            width: 200px;
+            height: 50px;
+        }
+
+        .hot-live {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 250px;
+            height: 50px;
+            padding-left: 20px;
+            padding-right: 0;
+            padding-top: 0;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .hot-live:hover>.hot-live-user{
+            transform: scale(1.2);
+        }
+
+        .hot-live-user {
+            margin-top: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        footer {
+            font-size: 14px;
+            color: darkgray;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px auto;
+            margin-bottom: 40px;
+        }
+
+        footer>span{
+            width: 100%;
+            text-align: center;
+        }
+
+        #pro-name{
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #back-home{
+            color: #0f88eb;
+        }
+
+    </style>
+    <script>
+        //搜索栏效果
+        function search(x) {
+            var doButton = document.getElementById('doSearch');
+            var box = document.getElementsByClassName('searchBox')[0];
+            var co = document.getElementById('svgOne');
+            if (x === 1) {
+                box.style.background = 'white';
+                doButton.className = 'onInput';
+                box.style.width = '290px';
+                co.style.fill = '#0f88eb';
+            } else {
+                box.style.width = '200px';
+                box.style.background = '#f7f8fa';
+                doButton.className = '';
+                co.style.fill = '#8590A6';
+            }
+        }
+        
+
+
+        window.onload = function () {
+            let liveFakes = document.getElementsByClassName('live-pic-fake');
+            let livePics = document.getElementsByClassName('live-pic-show');
+            for (let i = 0; i < livePics.length; i++) {
+
+                liveFakes[i].onmouseout = function () {
+                    livePics[i].style.display = 'flex';
+                    livePics[i].style.animation = 'for-live-out .3s';
+                    setTimeout(function () {
+                        livePics[i].style.display = 'none';
+                    }, 300);
+                }
+            }
+
+            var outLog = document.getElementById('logout');
+            outLog.onclick = function () {
+                location.assign('/');
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div id="nav-holder"></div>
+<div id="nav">
+    <div class="nav-contain">
+        <div id="logo-nav">
+            <div id="logo">
+                <span>洋葱直播</span>
+            </div>
+            <nav id="hot">
+                <a href="/home" class="nav-text" id="back-home">主页</a>
+            </nav>
+            <nav id="new">
+                <a href="#" target="_blank" class="nav-text">最新</a>
+            </nav>
+            <nav id="classify">
+                <span class="nav-text">分类</span>
+                <div id="out-fake"></div>
+                <div id="out-box">
+                    <a href="#" target="_blank" class="classify-text ma">
+                        推荐主播
+                    </a>
+                    <a href="#" target="_blank" class="classify-text ma">
+                        唱见舞见
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        御宅文化
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        网络游戏
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        手游直播
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        单机联机
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        电子竞技
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        生活娱乐
+                    </a>
+                    <a href="#" target="_blank" class="classify-text">
+                        绘画专区
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <div class="box">
+            <div class="searchBox">
+                <input onfocus="search(1)" onblur="search(0)" class="innerInput" name="key"
+                       placeholder="许下你的愿望吧~">
+                <div class="searchPic">
+                    <svg fill="#8590A6" id="svgOne" version="1.1" xmlns="http://www.w3.org/2000/svg" width="40px"
+                         height="40px" viewBox="-318.5 -318.5 60 60">
+                        <g>
+                            <path d="M-272.213-276.454l-6.833-6.833c-0.513-0.513-1.167-0.788-1.836-0.852c2.059-2.568,3.298-5.82,3.298-9.36  c0-8.271-6.729-15-15-15s-15,6.729-15,15s6.729,15,15,15c3.121,0,6.021-0.96,8.424-2.597c0.017,0.744,0.304,1.483,0.872,2.051  l6.833,6.833c0.585,0.586,1.354,0.879,2.121,0.879s1.536-0.293,2.121-0.879C-271.041-273.383-271.041-275.282-272.213-276.454z   M-292.584-283.499c-5.514,0-10-4.486-10-10s4.486-10,10-10s10,4.486,10,10S-287.07-283.499-292.584-283.499z"></path>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            <button id="doSearch">
+                上传
+            </button>
+        </div>
+        <div id="account">
+            <a href="#" target="_blank" id="user-message">
+                <img src="../picture/userPic.jpg" width="44px" height="44px">
+            </a>
+            <div id="user-down">
+                <div id="user-name">
+                    #(nickName)
+                </div>
+                <!--<div class="user-ch">-->
+                    <!--<span class="span-left">性别：</span>-->
+                    <!--<span class="span-right">男</span>-->
+                <!--</div>-->
+                <div class="user-ch">
+                    <span class="span-left">手机：</span>
+                    <span class="span-right">#(phoneNum)</span>
+                </div>
+                <div id="logout" class="user-ch">
+                    退出登录
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="index-show">
+    <div class="page-contain">
+        <video src="http://112.74.182.83:8080/#(hot_data.list[0].nick_name)/#(hot_data.list[0].video_name).#(hot_data.list[0].video_format)" width="970" height="530" loop controls autoplay
+               poster="../picture/vedioDefault.jpg">
+            您的浏览器不支持，请使用火狐或者新版其他浏览器
+        </video>
+        <a href="/room?video_id=#(hot_data.list[0].id)" target="_blank" id="into-room">
+            进入直播间
+        </a>
+        <div id="vi-pic-box">
+            #for(x : hot_data.list)
+            #if(for.index > 3)
+                break
+            #end
+            <a href="/room?video_id=#(x.id)" class="other-video">
+                <img src="http://112.74.182.83/androidSrc/localvideo/#(x.nick_name)/#(x.cover)">
+                <span class="other-video-text">
+                    #(x.video_name)
+                </span>
+            </a>
+            #end
+        </div>
+    </div>
+</div>
+<div class="zone page-contain">
+    <div class="lives-box">
+        <!--最新直播-->
+        <div class="lives-box-header">
+            <a href="#" target="_blank" class="live-zone-name"><h2>全部直播</h2></a>
+            <!--<a href="#" target="_blank" class="live-zone-more">更多</a>-->
+        </div>
+
+        #for(x : all_data.list)
+        <a href="/room?video_id=#(x.id)" target="_blank" class="live">
+            <div class="live-pic">
+                <img src="http://112.74.182.83/androidSrc/localvideo/#(x.nick_name)/#(x.cover)">
+                <div class="live-pic-show">
+                    <img src="../picture/userPic.jpg">
+                    <span><span></span>Live</span>
+                </div>
+                <div class="live-pic-fake"></div>
+            </div>
+            <div class="live-msg-box">
+                <span class="live-name">
+                    #(x.video_name)
+                </span>
+                <span class="live-user">
+                    #(x.nick_name)
+                </span>
+                <div class="live-hot">
+                    <img src="../picture/icon/live-viewer.png">
+                    <span class="live-user">
+                        #(x.comment_amounts)
+                    </span>
+                </div>
+            </div>
+        </a>
+        #end
+    </div>
+    <div class="lives-lv">
+        <!--直播排名，最热直播-->
+        <div class="lives-lv-header">
+            <div class="lives-lv-text">
+                热门排行
+            </div>
+        </div>
+        #for(x : hot_data.list)
+        <a href="/room?video_id=#(x.id)" target="_blank" class="hot-live">
+            <img src="../picture/userPic.jpg" class="hot-live-user">
+            <div class="live-msg-box">
+                <span class="live-name">
+                    #(x.video_name)
+                </span>
+                <span class="live-user">
+                    #(x.nick_name)
+                </span>
+                <div class="live-hot">
+                    <img src="../picture/icon/live-viewer.png">
+                    <span class="live-user">
+                        #(x.comment_amounts)
+                    </span>
+                </div>
+            </div>
+        </a>
+        #end
+    </div>
+</div>
+<footer>
+    <span id="pro-name">洋葱直播</span>
+    <span>Copyright © none  联系作者@Mr.Liu<1368209598@qq.com></span>
+</footer>
+<script type="text/javascript" src="../js/jq/jquery-3.2.1.js"></script>
+
+</body>
+</html>

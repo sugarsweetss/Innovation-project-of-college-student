@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>洋葱直播</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+
+        span {
+            margin-top: 25px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .error {
+            height: 15px;
+            line-height: 15px;
+            margin: 0;
+            font-size: 14px;
+            color: red;
+            position: absolute;
+            top: -18px;
+            display: none;
+        }
+
+        .contain {
+            display: flex;
+            justify-content: space-between;
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        #store-welcome {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            font-family: "Adobe 仿宋 Std R", serif;
+        }
+
+        #logo, #text {
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #logo {
+            color: #0f88eb;
+            margin: 20px 0;
+            font-size: 40px;
+        }
+
+        #text {
+            margin-left: 20px;
+            color: darkgray;
+            font-size: 25px;
+        }
+
+        #content {
+            height: 470px;
+            background: #0f88eb;
+        }
+
+        img {
+            margin: auto 0;
+            height: 90%;
+            width: 50%;
+        }
+
+        #login-box {
+            width: 340px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            margin-bottom: auto;
+            background: white;
+            padding: 20px;
+        }
+
+        label {
+            text-align: center;
+            color: black;
+            font-size: 20px;
+            width: 170px;
+            height: 30px;
+            margin-bottom: 30px;
+        }
+
+        label:hover {
+            font-size: 21px;
+            color: #0f88eb;
+        }
+
+        #log, #reg {
+            visibility: hidden;
+            position: absolute;
+        }
+
+        #log:checked + label, #reg:checked + label {
+            color: #0f88eb;
+        }
+
+        #change-box {
+            position: relative;
+            display: flex;
+            width: 100%;
+        }
+
+        #log:checked ~ #change-box > #regin, #reg:checked ~ #change-box > #login {
+            height: 0;
+            opacity: 0;
+            width: 0;
+        }
+
+        #login, #regin {
+            width: 100%;
+            transition: .3s;
+        }
+
+        .msg-contain {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            height: 40px;
+            z-index: 1;
+            margin-bottom: 25px;
+        }
+
+        .msg-box {
+            z-index: -1;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 38px;
+            border: 1px solid darkgray;
+            border-radius: 2px;
+            transition: all .3s;
+        }
+
+        .msg-contain > input {
+            display: inline;
+            height: 20px;
+            width: 90%;
+            vertical-align: middle;
+            font-size: 16px;
+            border: 0;
+            padding: 0;
+            margin-left: 10px;
+        }
+
+        .msg-contain > input:focus + .msg-box {
+            border-color: #0f88eb;
+            box-shadow: #0f88eb 0 0 4px;
+        }
+
+        input::-moz-placeholder {
+            color: lightslategrey;
+        }
+
+        #login > a {
+            float: right;
+            text-decoration: none;
+            color: darkgray;
+        }
+
+        #login > a:hover {
+            color: #0f88eb;
+            text-decoration: underline;
+        }
+
+        .submit-data {
+            cursor: pointer;
+            color: white;
+            font-size: 18px;
+            width: 100%;
+            height: 40px;
+            border-radius: 2px;
+            border: 0;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            background: #0f88eb;
+            transition: .5s;
+        }
+
+        .submit-data:active {
+            transform: scale(0.9);
+        }
+
+        #footer {
+            font-size: 14px;
+            color: darkgray;
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        #regin > .msg-contain{
+            margin-bottom: 15px;
+            height: 35px;
+            width: 100%;
+        }
+        #regin > .msg-contain > .msg-box{
+            height: 35px;
+            width: 100%;
+        }
+
+        #regin{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        #validate{
+            height: 30px;
+            width: 40% !important;
+        }
+
+       #get-validate{
+           margin-top: 0;
+           width: 150px;
+           height: 32px;
+           font-size: 16px;
+       }
+
+        #reg-button{
+            margin-top: 15px !important;
+        }
+
+    </style>
+</head>
+<body>
+<div class="contain">
+    <div id="store-welcome">
+        <span id="logo">洋葱</span>
+        <span id="text">欢迎拜访~</span>
+    </div>
+</div>
+<div id="content">
+    <div class="contain" style="height: 470px">
+        <div id="pic">
+        </div>
+        <div id="login-box">
+            <input type="radio" id="log" name="chose" checked>
+            <label for="log">用户登陆</label>
+            <input type="radio" id="reg" name="chose">
+            <label for="reg">注册用户</label>
+            <div id="change-box">
+                <div id="login">
+                    <div class="msg-contain">
+                        <input type="text" maxlength="10" name="account" placeholder="请输入账号(1-10位）">
+                        <div class="msg-box"></div>
+                    </div>
+                    <div class="msg-contain">
+                        <input type="password" maxlength="10" name="password" placeholder="请输入密码（6-10位）">
+                        <div class="msg-box"></div>
+                    </div>
+                    <a href="#" target="_blank">忘记密码</a>
+                    <button class="submit-data">
+                        登录
+                    </button>
+                </div>
+                <div id="regin">
+                    <div class="msg-contain">
+                        <input type="text" maxlength="20" name="account" placeholder="请输入邮箱账户">
+                        <div class="msg-box"></div>
+                    </div>
+                    <div class="msg-contain">
+                        <input type="text" maxlength="10" name="nickname" placeholder="请输入昵称（1-10位）">
+                        <div class="msg-box"></div>
+                    </div>
+                    <div class="msg-contain">
+                        <input type="password" maxlength="10" name="password" placeholder="请输入密码(6-10位数字或字符）">
+                        <div class="msg-box"></div>
+                    </div>
+                    <div class="msg-contain">
+                        <input type="password" maxlength="10" name="pwd" placeholder="请确认密码">
+                        <div class="msg-box"></div>
+                    </div>
+                    <div class="msg-contain" id="validate">
+                        <input type="text" maxlength="10" name="validate" placeholder="验证码">
+                        <div class="msg-box"></div>
+                    </div>
+                    <button class="submit-data" id="get-validate">
+                        获取邮箱验证码
+                    </button>
+                    <button class="submit-data" id="reg-button">
+                        注册
+                    </button>
+                </div>
+                <span class="error">错误!</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+    <span>Copyright © none  联系作者@Mr.Liu<1368209598@qq.com></span>
+</div>
+<script type="text/javascript" src="../js/jq/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="../js/ForLogin.js"></script>
+</body>
+</html>

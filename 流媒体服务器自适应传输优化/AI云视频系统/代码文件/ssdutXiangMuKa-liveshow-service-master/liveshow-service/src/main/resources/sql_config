@@ -1,0 +1,3 @@
+jdbcUrl = jdbc:mysql://localhost/liveshow?characterEncoding=utf8&zeroDateTimeBahavior=convertToNull
+user=root
+password=201592009
